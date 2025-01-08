@@ -1,4 +1,6 @@
-class Guest {
+import java.util.Objects;
+
+public class Guest {
     private String name;
     private String contactNumber;
     private String passportNumber;
@@ -40,5 +42,18 @@ class Guest {
         return "Guest " + name + ":" + newLine +
                 "Contact Number: " + contactNumber + " | " + "Passport Number: " + passportNumber
                 ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Guest)) return false;
+        Guest guest = (Guest) o;
+        return name == guest.name && contactNumber.equals(guest.contactNumber) && passportNumber.equals(guest.passportNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, contactNumber, passportNumber);
     }
 }
