@@ -1,5 +1,8 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Main {
     public static void main(String[] args) {
         String newLine = System.getProperty("line.separator");
@@ -15,14 +18,30 @@ public class Main {
         Booking booking2 = new Booking(room2, guest2, "2024-12-03", "2024-12-06");
         Booking booking3 = new Booking(room3, null, null, null);
 
-        System.out.println("Hotel Booking System" + newLine);
-//        System.out.println("Bookings:");
-        System.out.println(booking1);
-        System.out.println(booking2);
-        System.out.println(booking3);
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(room1);
+        rooms.add(room2);
+        rooms.add(room3);
 
-        System.out.println("Room 101 is " + (room1.isBooked()?"not available":"available"));
-        System.out.println("Room 102 is " + (room2.isBooked()?"not available":"available"));
-        System.out.println("Room 103 is " + (room3.isBooked()?"not available":"available"));
+        List<Booking> bookings = new ArrayList<>();
+        bookings.add(booking1);
+        bookings.add(booking2);
+        bookings.add(booking3);
+
+        System.out.println("Hotel Booking System" + newLine);
+
+        List<Room> availableRooms = rooms.stream().filter(room -> !room.isBooked()).collect(Collectors.toList());
+        System.out.println("Available Rooms: ");
+        availableRooms.forEach(System.out::println);
+        System.out.println();
+
+        Room searchedRoom = rooms.stream().filter(room -> room.getRoomNumber() == 102).findFirst().orElse(null);
+        System.out.println("Searched Room: " + newLine+ searchedRoom + newLine);
+
+        List<Booking> sortedBookings = bookings.stream().sorted(Comparator.comparingDouble(Booking::calculateTotalPrice)).collect(Collectors.toList());
+        System.out.println("Sorted Bookings By Price: ");
+        sortedBookings.forEach(System.out::println);
+
+        System.out.println("Are room 101 and 102 equal? " + room1.equals(room2));
     }
 }
