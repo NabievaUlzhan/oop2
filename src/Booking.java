@@ -1,4 +1,6 @@
-class Booking {
+import java.util.Objects;
+
+public class Booking {
     private Room room;
     private Guest guest;
     private String checkInDate;
@@ -51,11 +53,31 @@ class Booking {
         this.checkOutDate = checkOutDate;
     }
 
+    public double calculateTotalPrice() {
+        return room.getPrice();
+    }
+
     @Override
     public String toString() {
         return  room + newLine +
                 (guest == null ? "Room is available" : guest) + newLine +
                 (checkInDate == null || checkOutDate == null ? "" : "Check-in Date: " + checkInDate + " | " + "Check-out Date: " + checkOutDate + newLine)
                 ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Booking)) return false;
+        Booking booking = (Booking) o;
+        return checkInDate.equals(booking.checkInDate) &&
+                checkOutDate.equals(booking.checkOutDate) &&
+                guest.equals(booking.guest) &&
+                room.equals(booking.room);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(guest, room, checkInDate, checkOutDate);
     }
 }
