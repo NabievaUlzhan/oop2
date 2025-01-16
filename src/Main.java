@@ -7,9 +7,9 @@ public class Main {
     public static void main(String[] args) {
         String newLine = System.getProperty("line.separator");
 
-        Room room1 = new Room(101, "Single", 50.0);
-        Room room2 = new Room(102, "Double", 100.0);
-        Room room3 = new Room(103, "Double", 100.0);
+        Room room1 = new SingleRoom(101, 50.0);
+        Room room2 = new DoubleRoom(102, 100.0);
+        Room room3 = new DoubleRoom(103, 100.0);
 
         Guest guest1 = new Guest("Jon", "8-707-521-22-44", "65489789471");
         Guest guest2 = new Guest("Alicent", "8-702-745-63-85", "46846455123");
